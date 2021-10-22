@@ -22,9 +22,10 @@ def main():
     #! 创建连接
     DataHub.connect(hostname, port, domain)
     while 1:
-        time.sleep(5)
+        time.sleep(1)
         #? 终端清屏
         print("\033c", end="")
+        print("#########################" + time.asctime() + "#########################" + "\n")
         #? 获取Data（返回list格式）
         DataHub_List = DataHub.getDataHub_Data()
         for item in DataHub_List:
