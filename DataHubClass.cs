@@ -8,14 +8,24 @@ using Newtonsoft.Json;
 
 namespace DataHubLibV1
 {
+    public class DataType
+    {
+        public string PointName { get; set; }
+        public DataDetail DataDetail { get; set; }
+    }
+    public class DataDetail
+    {
+        public string PointGetDateString { get; set; }
+        public string PointStrVal { get; set; }
+        public string PointQuality { get; set; }
+    }
     public class DataHubClass : DataHubEventConsumer
     {
         private DataHubConnector m_Connector;
 
-        private string point_name;
-        private string point_getDateString;
-        private string point_strVal;
-        private int point_Quality;
+        private DataType DataType = new DataType();
+        private DataDetail DataDetail = new DataDetail();
+        private List<string> DataList = new List<string>();
 
         public void connect(string host, string port, string domain)
         {
@@ -36,25 +46,29 @@ namespace DataHubLibV1
             m_Connector.openConnection();
         }
 
-        public string getDataHub_Data()
+        public List<string> getDataHub_Data()
         {
-            Dictionary<string, string> DataHub = new Dictionary<string, string>();
-            DataHub.Add("point_name", point_name);
-            DataHub.Add("point_getDateString", point_getDateString);
-            DataHub.Add("point_strVal", point_strVal);
-            DataHub.Add("point_Quality", point_Quality.ToString());
-
-            string json_DataHub_str = JsonConvert.SerializeObject(DataHub);
-            return json_DataHub_str;
+            return DataList;
         }
 
         public void updateList(DataHubPoint point)
         {
             // Console.WriteLine(point.Name + ":" + point.getDateString() + ":" + point.StrVal + ":" + point.Quality);
-            point_name = point.Name;
-            point_getDateString = point.getDateString();
-            point_strVal = point.StrVal;
-            point_Quality = point.Quality;
+
+            for (int i = 0; i < DataList.Count(); i++)
+            {
+                if (JsonConvert.DeserializeObject<DataType>(DataList[i]).PointName == point.Name)
+                {
+                    DataList.RemoveAt(i);
+                }
+            }
+
+            DataType.PointName = point.Name;
+            DataDetail.PointGetDateString = point.getDateString();
+            DataDetail.PointStrVal = point.StrVal;
+            DataDetail.PointQuality = point.Quality.ToString();
+            DataType.DataDetail = DataDetail;
+            DataList.Add(JsonConvert.SerializeObject(DataType));
         }
 
 

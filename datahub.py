@@ -22,11 +22,14 @@ def main():
     #! 创建连接
     DataHub.connect(hostname, port, domain)
     while 1:
-        time.sleep(2)
-        #? 获取Data（返回json字符串格式）
-        DataHub_Str = DataHub.getDataHub_Data()
-        DataHub_Dic = json.loads(DataHub_Str)
-        print(DataHub_Dic)
+        time.sleep(5)
+        #? 终端清屏
+        print("\033c", end="")
+        #? 获取Data（返回list格式）
+        DataHub_List = DataHub.getDataHub_Data()
+        for item in DataHub_List:
+            DataHub_Data_Dict = json.loads(item);
+            print (DataHub_Data_Dict)
 
 
 if __name__ == '__main__':
