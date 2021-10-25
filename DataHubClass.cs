@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,7 @@ namespace DataHubLibV1
 
         private DataType DataType = new DataType();
         private DataDetail DataDetail = new DataDetail();
-        private List<string> DataList = new List<string>();
+        private ArrayList DataArray = new ArrayList();
 
         public void connect(string host, string port, string domain)
         {
@@ -46,20 +47,21 @@ namespace DataHubLibV1
             m_Connector.openConnection();
         }
 
-        public List<string> getDataHub_Data()
+        public string[] getDataHub_Data()
         {
-            return DataList;
+            string[] arrString = (string[])DataArray.ToArray(typeof(string));
+            return arrString;
         }
 
         public void updateList(DataHubPoint point)
         {
             // Console.WriteLine(point.Name + ":" + point.getDateString() + ":" + point.StrVal + ":" + point.Quality);
 
-            for (int i = 0; i < DataList.Count(); i++)
+            for (int i = 0; i < DataArray.Count; i++)
             {
-                if (JsonConvert.DeserializeObject<DataType>(DataList[i]).PointName == point.Name)
+                if (JsonConvert.DeserializeObject<DataType>(DataArray[i].ToString()).PointName == point.Name)
                 {
-                    DataList.RemoveAt(i);
+                    DataArray.RemoveAt(i);
                 }
             }
 
@@ -68,7 +70,7 @@ namespace DataHubLibV1
             DataDetail.PointStrVal = point.StrVal;
             DataDetail.PointQuality = point.Quality.ToString();
             DataType.DataDetail = DataDetail;
-            DataList.Add(JsonConvert.SerializeObject(DataType));
+            DataArray.Add(JsonConvert.SerializeObject(DataType));
         }
 
 
