@@ -47,10 +47,21 @@ namespace DataHubLibV1
             m_Connector.openConnection();
         }
 
-        public string[] getDataHub_Data()
+        private void disconnect()
         {
-            string[] arrString = (string[])DataArray.ToArray(typeof(string));
-            return arrString;
+            m_Connector.cancelReconnectionTimer();
+            m_Connector.closeConnection("Disconnect by user");
+        }
+
+        //public string[] getDataHub_Data()
+        //{
+        //    string[] arrString = (string[])DataArray.ToArray(typeof(string));
+        //    return arrString;
+        //}
+
+        public ArrayList getDataHub_Data()
+        {
+            return DataArray;
         }
 
         public void updateList(DataHubPoint point)
