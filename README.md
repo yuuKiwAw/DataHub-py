@@ -1,6 +1,7 @@
 # DataHub数据读取
 - python 3.8.3
   - pythonnet 2.5.2
+  - retrying 1.3.3
   - json 
   - time
 
@@ -12,3 +13,4 @@
   - DataHubClass.cs（二次封装源代码）
   - DHNetAPI.cs（DataHub数据读取源代码）
   - datahub.py（示例代码）
+  - logs（日志文件夹）
