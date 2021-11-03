@@ -2,10 +2,10 @@
 - python 3.8.3
   - pythonnet 2.5.2
   - retrying 1.3.3
-  - json 
+  - json
   - time
 
-# 
+#
 - DataHub
   - Cogent.dll（compile from DHNetAPI.cs）
   - DataHubLibV1.dll（compile from DataHubClass.cs）
