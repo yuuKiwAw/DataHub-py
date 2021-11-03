@@ -54,7 +54,7 @@ def GetDataHubInfo(DataHubSet):
         #! 创建连接
         DataHub.connect(hostname, port, domain)
         logger.info('Start Connection')
-        
+
         while 1:
             time.sleep(0.1)
             #? 终端清屏
@@ -62,7 +62,7 @@ def GetDataHubInfo(DataHubSet):
             print("#########################" + time.asctime() + "#########################" + "\n")
             #? 获取Data（返回list格式）
             DataHub_List = DataHub.getDataHub_Data()
-            
+
             for item in range(len(DataHub_List)):
                 print(DataHub_List[item])
     #! 异常处理抛出
@@ -80,7 +80,7 @@ def main():
     dhs_s1.hostname = "localhost"
     dhs_s1.port = "4502"
     dhs_s1.domain = "DataPid"
-    
+
     GetDataHubInfo(dhs_s1)
 
 if __name__ == '__main__':
