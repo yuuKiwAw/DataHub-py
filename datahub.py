@@ -3,7 +3,7 @@
 import clr
 import time
 import logging
-import os.path
+import os
 import sys
 import signal
 from pydantic import BaseModel
